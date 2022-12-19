@@ -45,7 +45,9 @@ ForEach-Object -InputObject $seriesFolders -Process {
                 $targetEpisode = "S$season" + "E$episode.mp4"
             }
             #Rename the file
-            Rename-Item $episodeFile -NewName $targetEpisode -WhatIf
+            Rename-Item $episodeFile -NewName $targetEpisode 
+            #Move the episode file to the parent season folder
+            Move-Item ($episodeFolder + "\" + $targetEpisode) -Destination (Get-Item $episodeFolder).parent
         }
     }
 }
