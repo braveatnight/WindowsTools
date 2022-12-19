@@ -48,6 +48,9 @@ ForEach-Object -InputObject $seriesFolders -Process {
             Rename-Item $episodeFile -NewName $targetEpisode 
             #Move the episode file to the parent season folder
             Move-Item ($episodeFolder + "\" + $targetEpisode) -Destination (Get-Item $episodeFolder).parent
+            #Remove the episode folder
+            #For some reason this tries to remove the files in the episode folder, not the episode folder itself
+            #Remove-Item (Get-ChildItem $episodeFolder.parent -Directory) -Force -ErrorAction SilentlyContinue -WhatIf 
         }
     }
 }
